@@ -1,0 +1,48 @@
+.background{
+    background-color: #e9f1f7;
+}
+.weather-formatting{
+    column-count: 1;
+}
+.current-weather {
+    padding: 2em;
+    text-align: center;
+    background-color: #d8e1e8;
+}
+.weather-forecast{
+    text-align: center;
+    column-count: 1;
+}
+.divider{
+    padding: .5em;
+}
+h1{
+    text-align: center;
+}
+footer{
+    padding: 1em;
+}
+
+@media only screen and (min-width: 600px){
+    .weather-forecast{
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 750px){
+    .weather-forecast{
+        column-count: 3;
+    }   
+}
+    
+@media only screen and (min-width: 1000px) {
+    .weather-formatting{
+        column-colunt: 2;
+    }
+    .current-weather{
+        border-style: so
+    }
+    .weather-forecast{
+    column-count: 4;
+}
+}
