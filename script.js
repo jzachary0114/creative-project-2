@@ -1,49 +1,51 @@
     //API: d7774707e55cd2e79df0d2f2fc20564a MMM Do, h a'
-    document.getElementById("weatherSubmit").addEventListener("click", function(event) {
+    document.getElementById("playerSubmit").addEventListener("click", function(event) {
   event.preventDefault();
-  const value = document.getElementById("weatherInput").value;
-  if (value === "")
+  debugger
+  const playerSearch = document.getElementById("playerInput").value;
+  if (playerSearch === "")
     return;
-  console.log(value);
-  const url = "https://api.openweathermap.org/data/2.5/weather?q=" + value + ",US&units=imperial" + "&APPID=d7774707e55cd2e79df0d2f2fc20564a";
+  console.log(playerSearch);
+  const url = "https://www.balldontlie.io/api/v1/players?search=" + playerSearch;
+  let playerId = ''
+  console.log(url);
   fetch(url)
     .then(function(response) {
       return response.json();
-    }).then(function(json) {	
-      let results = "";
-      results += '<h2> Current weather in ' + json.name + "</h2>";
-      for (let i=0; i < json.weather.length; i++) {
-	results += '<img src="http://openweathermap.org/img/w/' + json.weather[i].icon + '.png"/>';
-      }
-      results += '<h2>' + Math.round(json.main.temp) + " &deg;F</h2>"
-      results += "<p>"
-      
-      for (let i=0; i < json.weather.length; i++) {
-        results += '<h5>' + 'FEELS LIKE: ' + Math.round(json.main.feels_like) + '&deg;F';
-	results += '<h5>' + json.weather[i].description.toUpperCase() + ' - WIND SPEED: ' + Math.round(json.wind.speed) + "mph";
-	
-	results += '<h5>' + 'HUMIDITY: ' + json.main.humidity + '%'; 
-	if (i !== json.weather.length - 1)
-	  results += ", "
-      }
-      results += "</p>";
-      //results += "<p>" + json.city.sun.rise;
-      document.getElementById("weatherResults").innerHTML = results;
-    });
-     const url2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + value + ", US&units=imperial" + "&APPID=d7774707e55cd2e79df0d2f2fc20564a";
-  fetch(url2)
-    .then(function(response) {
-      return response.json();
-    }).then(function(json) {
-      let forecast = "";
-      for (let i=0; i < json.list.length; i++) {
-      
-	forecast += "<h2>" + moment(json.list[i].dt_txt).format('MMM D, h a') + "</h2>";
-	forecast += "<p>Temp: " + Math.round(json.list[i].main.temp) + "</p>";
-	forecast += '<img src="https://openweathermap.org/img/w/' + json.list[i].weather[0].icon + '.png"/>'
-	forecast += '<p> Cloud Coverage: ' + json.list[i].clouds.all + '%';
-      }
-      console.log(json)
-      document.getElementById("forecastResults").innerHTML = forecast;
-    });
+    }).then(function(json){
+
+  //STATS URL: https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=
+    debugger
+    playerId = json.data[0].id
+    let urlStats = 'https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=' + playerId
+    let results = ''
+    console.log(json)
+    results = '<p>Player Name: ' + json.data[0].first_name + ' ' + json.data[0].last_name + '</p>'
+    results += '<p>Position: ' + json.data[0].position + '</p>'
+    results += '<p>Team: ' + json.data[0].team.full_name + '</p>'
+      document.getElementById("playerResults").innerHTML = results
+    
+  debugger
+  //let urlStats = 'https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=' + playerId
+  console.log(urlStats)
+  fetch(urlStats)
+   .then(function(response) {
+     return response.json();
+   }).then(function(json) {
+    debugger
+    let statsResults = ''
+    console.log(json)
+    
+    statsResults += '<p>Games Playes: ' + json.data[0].games_played + '</p>'
+    statsResults += '<p>Minutes Per Game: ' + json.data[0].min + '</p>'
+    statsResults += '<p>Points Per Game: ' + json.data[0].pts + '</p>'
+    statsResults += '<p>Assists Per Game: ' + json.data[0].ast + '</p>'
+    statsResults += '<p>Rebounds Per Game: ' + json.data[0].reb + '</p>'
+    statsResults += '<p>Steals Per Game: ' + json.data[0].stl + '</p>'
+    statsResults += '<p>Blocks Per Game: ' + json.data[0].blk + '</p>'
+    statsResults += '<p>Turnovers Per Game: ' + json.data[0].turnover + '</p>'
+
+      document.getElementById("playerStats").innerHTML = statsResults
+})
+   })
 });
