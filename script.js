@@ -33,10 +33,14 @@
      return response.json();
    }).then(function(json) {
     debugger
+    event.preventDefault();
     let statsResults = ''
     console.log(json)
+    if(json === {data: Array(0)}){
+            document.getElementById("playerStats").innerHTML = statsResults
+    }
     
-    statsResults += '<p>Games Playes: ' + json.data[0].games_played + '</p>'
+    statsResults += '<p>Games Playes: ' + json.data[0].games_played + '</p></n>'
     statsResults += '<p>Minutes Per Game: ' + json.data[0].min + '</p>'
     statsResults += '<p>Points Per Game: ' + json.data[0].pts + '</p>'
     statsResults += '<p>Assists Per Game: ' + json.data[0].ast + '</p>'
@@ -44,6 +48,8 @@
     statsResults += '<p>Steals Per Game: ' + json.data[0].stl + '</p>'
     statsResults += '<p>Blocks Per Game: ' + json.data[0].blk + '</p>'
     statsResults += '<p>Turnovers Per Game: ' + json.data[0].turnover + '</p>'
+  
+    
 
       document.getElementById("playerStats").innerHTML = statsResults
 })

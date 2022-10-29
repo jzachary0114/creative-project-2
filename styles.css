@@ -1,5 +1,5 @@
 .background{
-    background-color: #e9f1f7;
+    background-color: #2b3133;
 }
 .weather-formatting{
     column-count: 1;
@@ -10,6 +10,17 @@
     background-color: #d8e1e8;
 }
 .playerInfo{
+    margin-bottom: 10px;
+    background-color: #6c8891;
+    border-width: 5px;
+    border-color: #6c8891;
+    text-align: center;
+    column-count: 1;
+}
+.stats{
+    background-color: #6c8891;
+    border-width: 5px;
+    border-color: #6c8891;
     text-align: center;
     column-count: 1;
 }
@@ -18,11 +29,17 @@
 }
 h1{
     text-align: center;
+    color: #e0e0e0;
 }
 footer{
     padding: 1em;
 }
-
+label{
+    color: #e0e0e0;
+}
+p{
+    color: #e0e0e0;
+}
 @media only screen and (min-width: 600px){
     .weather-forecast{
         column-count: 2;
